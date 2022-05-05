@@ -44,7 +44,6 @@ object juego{
 		reloj.detener()
 		dino.morir()
 	}
-	
 }
 
 object gameOver {
