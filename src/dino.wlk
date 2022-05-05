@@ -12,6 +12,7 @@ object juego{
 		game.addVisual(cactus)
 		game.addVisual(dino)
 		game.addVisual(reloj)
+		game.addVisual(cono)
 	
 		keyboard.space().onPressDo{ self.jugar()}
 		
@@ -23,6 +24,7 @@ object juego{
 		dino.iniciar()
 		reloj.iniciar()
 		cactus.iniciar()
+		cono.iniciar()
 	}
 	
 	method jugar(){
@@ -38,6 +40,7 @@ object juego{
 	method terminar(){
 		game.addVisual(gameOver)
 		cactus.detener()
+		cono.detener()
 		reloj.detener()
 		dino.morir()
 	}
@@ -97,6 +100,33 @@ object cactus {
 	}
 }
 
+object cono {
+	 
+	const posicionInicial = game.at(game.width()-5,suelo.position().y())
+	var position = posicionInicial
+
+	method image() = "cono.png"
+	method position() = position
+	
+	method iniciar(){
+		position = posicionInicial
+		game.onTick(velocidad,"moverCono",{self.mover()})
+	}
+	
+	method mover(){
+		position = position.left(1)
+		if (position.x() == -1)
+			position = posicionInicial
+	}
+	
+	method chocar(){
+		juego.terminar()
+	}
+    method detener(){
+		game.removeTickEvent("moverCono")
+	}
+}
+
 object suelo{
 	
 	method position() = game.origin().up(1)
@@ -127,7 +157,7 @@ object dino {
 		position = position.down(1)
 	}
 	method morir(){
-		game.say(self,"¡Auch!")
+		game.say(self,"¡Noo, me re morí!")
 		vivo = false
 	}
 	method iniciar() {
