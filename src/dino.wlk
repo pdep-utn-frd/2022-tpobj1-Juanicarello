@@ -107,7 +107,7 @@ object cono {
 	method position() = position
 	method posicionInicial() = game.at(game.width()-5,suelo.position().y())
 	method iniciar(){
-		position = posicionInicial
+		position = self.posicionInicial()
 		game.onTick(velocidad,"moverCono",{self.mover()})
 	}
 	
