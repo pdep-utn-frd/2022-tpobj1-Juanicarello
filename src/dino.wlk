@@ -101,12 +101,11 @@ object cactus {
 
 object cono {
 	 
-	const posicionInicial = game.at(game.width()-5,suelo.position().y())
-	var position = posicionInicial
+	var position = self.posicionInicial()
 
 	method image() = "cono.png"
 	method position() = position
-	
+	method posicionInicial() = game.at(game.width()-5,suelo.position().y())
 	method iniciar(){
 		position = posicionInicial
 		game.onTick(velocidad,"moverCono",{self.mover()})
@@ -115,7 +114,7 @@ object cono {
 	method mover(){
 		position = position.left(1)
 		if (position.x() == -1)
-			position = posicionInicial
+			position = self.posicionInicial()
 	}
 	
 	method chocar(){
